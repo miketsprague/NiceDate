@@ -2,8 +2,7 @@ NiceDate
 ========
 
 Tired of NSDate formatting bullshit?  
-So am I.  
-I made NSDate manipulation easy.
+Me too, so I made it suck less.
 
 Example:
 ```
@@ -25,7 +24,7 @@ NSLog(@"%@", formattedDate);
 
 ```
 
-It makes simple date manipulation as easy as it should be.
+No Apple, I want to tell you I'm using a Gregorian calendar.
 ```
 -(NSDate*)incrementMonth:(NSDate*)date
 {
@@ -35,5 +34,15 @@ It makes simple date manipulation as easy as it should be.
     return niceDate.date;
 }
 
+-(NSDate*)oldIncrementMonth:(NSDate*)date
+{
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *dateComponents = [gregorian components:( NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit ) fromDate:date];
+    [dateComponents setMonth:[dateComponents month]+1];
+    return [gregorian dateFromComponents:dateComponents];
+}
+
 ```
+
+
 
