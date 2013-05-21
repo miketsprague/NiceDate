@@ -6,7 +6,7 @@ Me too, so I made it suck less.
 
 ## Installation
 
-Just copy the two files into your project and make sure to add NiceDate.m to your Compile Sources!
+Just copy the two files into your project!
 
 ## Usage
 
