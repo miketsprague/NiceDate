@@ -56,7 +56,7 @@ Although, if you need to:
   niceDate.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:(-5 * 3600)];
 ```
 
-** Requirements
+## Requirements
 ARC
 
 
