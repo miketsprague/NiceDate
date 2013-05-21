@@ -1,7 +1,7 @@
 NiceDate
 ========
 
-Tired of NSDate formatting bullshit?  
+Tired of NSDate manipulation bullshit?  
 Me too, so I made it suck less.
 
 Example:
@@ -28,8 +28,7 @@ No Apple, I shouldn't have to tell you I'm using a Gregorian calendar.
 ```
 -(NSDate*)incrementMonth:(NSDate*)date
 {
-    NiceDate *niceDate = [NiceDate new];
-    niceDate.date = date;
+    NiceDate *niceDate = [[NiceDate alloc] initWithDate:date];
     niceDate.month++;
     return niceDate.date;
 }
