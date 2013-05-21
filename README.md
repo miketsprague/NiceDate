@@ -1,6 +1,6 @@
 # NiceDate
 
-Tired of NSDate manipulation bullshit?  
+Tired of NSDate manipulation shenanigans?  
 Me too, so I made it suck less.
 
 
