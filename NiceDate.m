@@ -10,7 +10,7 @@
 
 @interface NiceDate()
 @property (nonatomic, strong) NSDateFormatter *formatter;
-@property (nonatomic, strong) NSCalendar *gregorian;
+@property (nonatomic, strong) NSCalendar *calendar;
 @end
 
 @implementation NiceDate
@@ -30,11 +30,21 @@
         _timeZone = [NSTimeZone timeZoneForSecondsFromGMT:-18000];
         _formatter = [NSDateFormatter new];
         [_formatter setDateFormat:_format];
-        _gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        _calendarIdentifier = NSGregorianCalendar;
+        _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:_calendarIdentifier];
     }
     
     return self;
     
+}
+
+-(id)initWithDate:(NSDate*)date
+{
+    if(self = [self init]){
+        self.date = date;
+    }
+    
+    return self;
 }
 
 // Today!
@@ -56,7 +66,7 @@
     _second = second;
     NSDateComponents *dateComponents = [self getDateComps];
     [dateComponents setSecond:_second];
-    _date = [_gregorian dateFromComponents:dateComponents];
+    _date = [_calendar dateFromComponents:dateComponents];
 }
 
 -(NSUInteger)minute
@@ -69,7 +79,7 @@
     _minute = minute;
     NSDateComponents *dateComponents = [self getDateComps];
     [dateComponents setMinute:_minute];
-    _date = [_gregorian dateFromComponents:dateComponents];
+    _date = [_calendar dateFromComponents:dateComponents];
 }
 
 -(NSUInteger)hour
@@ -82,7 +92,7 @@
     _hour = hour;
     NSDateComponents *dateComponents = [self getDateComps];
     [dateComponents setHour:_hour];
-    _date = [_gregorian dateFromComponents:dateComponents];
+    _date = [_calendar dateFromComponents:dateComponents];
 }
 
 
@@ -96,7 +106,7 @@
     _day = day;
     NSDateComponents *dateComponents = [self getDateComps];
     [dateComponents setDay:_day];
-    _date = [_gregorian dateFromComponents:dateComponents];
+    _date = [_calendar dateFromComponents:dateComponents];
 }
 
 -(NSUInteger)month
@@ -109,7 +119,7 @@
     _month = month;
     NSDateComponents *dateComponents = [self getDateComps];
     [dateComponents setMonth:_month];
-    _date = [_gregorian dateFromComponents:dateComponents];
+    _date = [_calendar dateFromComponents:dateComponents];
 }
 
 -(NSUInteger)year
@@ -122,7 +132,14 @@
     _year = year;
     NSDateComponents *dateComponents = [self getDateComps];
     [dateComponents setYear:_year];
-    _date = [_gregorian dateFromComponents:dateComponents];
+    _date = [_calendar dateFromComponents:dateComponents];
+}
+
+-(void)setCalendarIdentifier:(NSString *)calendarIdentifier
+{
+    _calendarIdentifier = calendarIdentifier;
+    // Update our calendar.
+    _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:_calendarIdentifier];
 }
 
 // We're overriding our date, so we need to make sure that we update all of our fields to take the NSDate's values.
@@ -150,7 +167,7 @@
 
 -(NSDateComponents*)getDateComps
 {
-    return [_gregorian components:( NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit ) fromDate:self.date];
+    return [_calendar components:( NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit ) fromDate:self.date];
 }
 
 @end

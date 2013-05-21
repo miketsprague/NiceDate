@@ -19,8 +19,11 @@
 @property (nonatomic, strong) NSString *format;
 @property (nonatomic, strong) NSTimeZone *timeZone;
 @property (nonatomic, strong) NSDate *date;
+// Just in case you don't feel like Gregorian ;)
+@property (nonatomic, strong) NSString *calendarIdentifier;
 
 -(id)init;
+-(id)initWithDate:(NSDate*)date;
 -(NSString*)description; // description will be formatted by the format string.
 
 +(NiceDate*)date;
