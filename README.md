@@ -27,6 +27,9 @@ NSString *formattedDate = niceDate.description;
 // Let's log it
 NSLog(@"%@", formattedDate);
 
+// Could also be written as:
+// NSLog(@"%@", niceDate);
+
 ```
 
 No Apple, I shouldn't have to tell you I'm using a Gregorian calendar.
