@@ -1,10 +1,15 @@
-NiceDate
-========
+# NiceDate
 
 Tired of NSDate manipulation bullshit?  
 Me too, so I made it suck less.
 
-Example:
+
+## Installation
+
+Just copy the two files into your project and make sure to add NiceDate.m to your Compile Sources!
+
+## Usage
+
 ```
 // Create our NiceDate wrapper based on today's date.
 NiceDate *niceDate = [NiceDate niceDate];
