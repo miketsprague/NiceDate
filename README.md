@@ -48,6 +48,15 @@ No Apple, I shouldn't have to tell you I'm using a Gregorian calendar.
 
 ```
 
+Although, if you need to:
+```
+  niceDate.calendarIdentifier = NSBuddhistCalendar;
+  
+  // We can also change the time zone as usual (this only affects the description string):
+  niceDate.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:(-5 * 3600)];
+```
+
+
 (Requires ARC)
 
 
