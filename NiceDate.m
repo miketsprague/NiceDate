@@ -24,14 +24,8 @@
 
 -(id)init
 {
-    if(self = [super init])
+    if(self = [self initWithDate:[NSDate date]])
     {
-        _format = @"MM-dd-yyyy HH:mm:ss";
-        _timeZone = [NSTimeZone timeZoneForSecondsFromGMT:-18000];
-        _formatter = [NSDateFormatter new];
-        [_formatter setDateFormat:_format];
-        _calendarIdentifier = NSGregorianCalendar;
-        _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:_calendarIdentifier];
     }
     
     return self;
@@ -40,19 +34,29 @@
 
 -(id)initWithDate:(NSDate*)date
 {
-    if(self = [self init]){
+    if(self = [super init]){
+        _format = @"MM-dd-yyyy HH:mm:ss";
+        _timeZone = [NSTimeZone timeZoneForSecondsFromGMT:-18000];
+        _formatter = [NSDateFormatter new];
+        [_formatter setDateFormat:_format];
+        _calendarIdentifier = NSGregorianCalendar;
+        _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:_calendarIdentifier];
         self.date = date;
     }
     
     return self;
 }
 
-// Today!
-+(NiceDate*)date
++(NiceDate*)niceDate
 {
-    NiceDate *date = [NiceDate new];
-    date.date = [NSDate date];
-    return date;
+    NiceDate *niceDate = [NiceDate new];
+    return niceDate;
+}
+
++(NiceDate*)niceDateWithDate:(NSDate*)date
+{
+    NiceDate *niceDate = [[NiceDate alloc] initWithDate:date];
+    return niceDate;
 }
 
 

@@ -4,7 +4,6 @@
 //
 //  Created by Michael Sprague on 5/20/13.
 //
-//
 
 #import <Foundation/Foundation.h>
 
@@ -22,10 +21,13 @@
 // Just in case you don't feel like Gregorian ;)
 @property (nonatomic, strong) NSString *calendarIdentifier;
 
--(id)init;
+-(id)init; // defaults to today
 -(id)initWithDate:(NSDate*)date;
 -(NSString*)description; // description will be formatted by the format string.
 
-+(NiceDate*)date;
+// The same as alloc init
++(NiceDate*)niceDate;
+// The same as alloc initWithDate
++(NiceDate*)niceDateWithDate:(NSDate*)date;
 
 @end
