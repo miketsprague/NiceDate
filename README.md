@@ -43,5 +43,6 @@ No Apple, I shouldn't have to tell you I'm using a Gregorian calendar.
 
 ```
 
+(Requires ARC)
 
 
