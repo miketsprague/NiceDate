@@ -7,7 +7,7 @@ Me too, so I made it suck less.
 Example:
 ```
 // Create our NiceDate wrapper based on today's date.
-NiceDate *niceDate = [NiceDate date];
+NiceDate *niceDate = [NiceDate niceDate];
             
 // I want it to be my birthday already!
 niceDate.day = 16;
@@ -28,7 +28,7 @@ No Apple, I shouldn't have to tell you I'm using a Gregorian calendar.
 ```
 -(NSDate*)incrementMonth:(NSDate*)date
 {
-    NiceDate *niceDate = [[NiceDate alloc] initWithDate:date];
+    NiceDate *niceDate = [[NiceDate alloc] initWithDate:date]; // same as [NiceDate niceDateWithDate:date];
     niceDate.month++;
     return niceDate.date;
 }
