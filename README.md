@@ -1,16 +1,39 @@
 NiceDate
 ========
 
-Tired of NSDate formatting bullshit?  Don't want to have to specify that you're using a Gregorian calendar?  Neither do I.  So use this.
+Tired of NSDate formatting bullshit?  
+So am I.  
+I made NSDate manipulation easy.
 
-
-Usage:
+Example:
 ```
-NiceDate *niceDate = [NiceDate date]; // today
-// I would like it to be my birthday.
-niceDate.month = 11;
+// Create our NiceDate wrapper based on today's date.
+NiceDate *niceDate = [NiceDate date];
+            
+// I want it to be my birthday already!
 niceDate.day = 16;
-NSLog(@"Horray, it's my birthday today (%@)", niceDate);
+niceDate.month = 11;
+                            
+// I don't need to see the seconds, I'll fix the format.
+niceDate.format = @"MM-dd-YYYY";
+                                        
+// Now we have a nice formatted date!
+NSString *formattedDate = niceDate.description;
+
+// Let's log it
+NSLog(@"%@", formattedDate);
+
 ```
 
-TODO: Formatting
+It makes simple date manipulation as easy as it should be.
+```
+-(NSDate*)incrementMonth:(NSDate*)date
+{
+    NiceDate *niceDate = [NiceDate new];
+    niceDate.date = date;
+    niceDate.month++;
+    return niceDate.date;
+}
+
+```
+
