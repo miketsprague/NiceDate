@@ -24,7 +24,7 @@ NSLog(@"%@", formattedDate);
 
 ```
 
-No Apple, I want to tell you I'm using a Gregorian calendar.
+No Apple, I shouldn't have to tell you I'm using a Gregorian calendar.
 ```
 -(NSDate*)incrementMonth:(NSDate*)date
 {
