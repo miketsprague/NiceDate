@@ -21,13 +21,31 @@
 // Just in case you don't feel like Gregorian ;)
 @property (nonatomic, strong) NSString *calendarIdentifier;
 
--(id)init; // defaults to today
--(id)initWithDate:(NSDate*)date;
--(NSString*)description; // description will be formatted by the format string.
+//  create with current date/time
+- (id) init;
 
-// The same as alloc init
-+(NiceDate*)niceDate;
-// The same as alloc initWithDate
-+(NiceDate*)niceDateWithDate:(NSDate*)date;
+//  create with supplied date/time
+- (id) initWithDate: (NSDate*) date;
+
+//  overrides description to display formatted date
+- (NSString *) description;
+
+//  unix timestamp
+- (NSTimeInterval) unixTime;
+
+//  gets a date/time stamp formatted YYYY-mm-dd H:i:s
+- (NSString *) mysqlDateTime;
+
+//  The same as alloc init
++ (NiceDate *) niceDate;
+
+//  The same as alloc initWithDate
++ (NiceDate *) niceDateWithDate: (NSDate*) date;
+
+//  current time in mysql format, intended for one-time use
++ (NSString *) currentMysqlDateTime;
+
+//  current unix timestamp, intended for one-time use
++ (NSTimeInterval) currentUnixTime;
 
 @end
