@@ -36,7 +36,7 @@
 {
     if(self = [super init]){
         _format = @"MM-dd-yyyy HH:mm:ss";
-        _timeZone = [NSTimeZone timeZoneForSecondsFromGMT:-18000];
+        _timeZone = [[NSCalendar autoupdatingCurrentCalendar] timeZone];
         _formatter = [NSDateFormatter new];
         [_formatter setDateFormat:_format];
         _calendarIdentifier = NSGregorianCalendar;
@@ -45,6 +45,19 @@
     }
     
     return self;
+}
+
+//  unix timestamp
+- (NSTimeInterval) unixTime
+{
+    return [self.date timeIntervalSince1970];
+}
+
+//  gets a date/time stamp formatted YYYY-mm-dd H:i:s
+- (NSString *) mysqlDateTime
+{
+    self.format = @"yyyy-MM-dd HH:mm:ss";
+    return [self description];
 }
 
 +(NiceDate*)niceDate
@@ -57,6 +70,24 @@
 {
     NiceDate *niceDate = [[NiceDate alloc] initWithDate:date];
     return niceDate;
+}
+
++ (NSString *) currentMysqlDateTime
+{
+    NSString *ret = nil;
+    @autoreleasepool {
+        ret = [[NiceDate new] mysqlDateTime];
+    }
+    return ret;
+}
+
++ (NSTimeInterval) currentUnixTime
+{
+    NSTimeInterval ret = -1;
+    @autoreleasepool {
+        ret = [[NiceDate new] unixTime];
+    }
+    return ret;
 }
 
 
