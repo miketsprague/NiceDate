@@ -48,4 +48,7 @@
 //  current unix timestamp, intended for one-time use
 + (NSTimeInterval) currentUnixTime;
 
+// returns whether two NiceDate instances are equal or not
+- (BOOL)isEqualToNiceDate:(NiceDate *)otherDate {
+
 @end
