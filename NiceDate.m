@@ -205,4 +205,8 @@
     return [_calendar components:( NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit ) fromDate:self.date];
 }
 
+- (BOOL)isEqualToNiceDate:(NiceDate *)otherDate {
+	
+	return [self.date isEqualToDate:otherDate.date];
+}
 @end
