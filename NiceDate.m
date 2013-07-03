@@ -207,7 +207,6 @@
 
 - (BOOL)isEqualToNiceDate:(NiceDate *)otherDate {
 	
-	if ([self.date isEqualToDate:otherDate.date]) return YES;
-	return NO;
+	return [self.date isEqualToDate:otherDate.date];
 }
 @end
