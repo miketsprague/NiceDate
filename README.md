@@ -62,4 +62,5 @@ Although, if you need to:
 ## Requirements
 ARC
 
-
+## Todo
+NSDateFormatter is *really* slow, especially allocation.  Make a shared instance or something more clever.
