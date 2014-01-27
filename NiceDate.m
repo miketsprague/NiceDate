@@ -202,7 +202,7 @@
 
 -(NSDateComponents*)getDateComps
 {
-    return [_calendar components:( NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit ) fromDate:self.date];
+    return [_calendar components:( NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit ) fromDate:self.date];
 }
 
 - (BOOL)isEqualToNiceDate:(NiceDate *)otherDate {

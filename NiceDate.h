@@ -49,6 +49,6 @@
 + (NSTimeInterval) currentUnixTime;
 
 // returns whether two NiceDate instances are equal or not
-- (BOOL)isEqualToNiceDate:(NiceDate *)otherDate {
+- (BOOL)isEqualToNiceDate:(NiceDate *)otherDate;
 
 @end
