@@ -9,8 +9,9 @@
 #import "NiceDate.h"
 
 @interface NiceDate()
-@property (nonatomic, strong) NSDateFormatter *formatter;
+@property (nonatomic, strong, readonly) NSDateFormatter *formatter;
 @property (nonatomic, strong) NSCalendar *calendar;
+
 @end
 
 @implementation NiceDate
@@ -24,12 +25,7 @@
 
 -(id)init
 {
-    if(self = [self initWithDate:[NSDate date]])
-    {
-    }
-    
-    return self;
-    
+    return self = [self initWithDate:[NSDate date]];
 }
 
 -(id)initWithDate:(NSDate*)date
@@ -37,11 +33,22 @@
     if(self = [super init]){
         _format = @"MM-dd-yyyy HH:mm:ss";
         _timeZone = [[NSCalendar autoupdatingCurrentCalendar] timeZone];
-        _formatter = [NSDateFormatter new];
-        [_formatter setDateFormat:_format];
         _calendarIdentifier = NSGregorianCalendar;
         _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:_calendarIdentifier];
         self.date = date;
+    }
+    
+    return self;
+}
+
+-(id)initWithNiceDate:(NiceDate*)niceDate
+{
+    if(self = [super init]) {
+        _format = niceDate.format;
+        _timeZone = niceDate.timeZone;
+        _calendar = niceDate.calendar;
+        _calendarIdentifier = niceDate.calendarIdentifier;
+        self.date = niceDate.date;
     }
     
     return self;
@@ -70,6 +77,11 @@
 {
     NiceDate *niceDate = [[NiceDate alloc] initWithDate:date];
     return niceDate;
+}
+
++(NiceDate*)niceDateWithNiceDate:(NiceDate*)niceDate {
+    NiceDate *newNiceDate = [[NiceDate alloc] initWithNiceDate:niceDate];
+    return newNiceDate;
 }
 
 + (NSString *) currentMysqlDateTime
@@ -192,11 +204,22 @@
     _year = [components year];
 }
 
+- (NSDateFormatter*)formatter {
+    static NSDateFormatter *_sharedFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedFormatter = [NSDateFormatter new];
+        [_sharedFormatter setDateFormat:_format];
+    });
+    
+    return _sharedFormatter;
+}
+
 -(NSString*)description
 {
-    [_formatter setDateFormat:_format];
-    [_formatter setTimeZone:_timeZone];
-    return [_formatter stringFromDate:self.date];
+    [self.formatter setDateFormat:_format];
+    [self.formatter setTimeZone:_timeZone];
+    return [self.formatter stringFromDate:self.date];
     
 }
 

@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NiceDate : NSObject
+@interface NiceDate : NSObject <NSCopying>
 
 @property (nonatomic, assign) NSUInteger second;
 @property (nonatomic, assign) NSUInteger minute;
@@ -27,6 +27,9 @@
 //  create with supplied date/time
 - (id) initWithDate: (NSDate*) date;
 
+// Create with another nice date
+- (id) initWithNiceDate: (NiceDate*)niceDate;
+
 //  overrides description to display formatted date
 - (NSString *) description;
 
@@ -41,6 +44,9 @@
 
 //  The same as alloc initWithDate
 + (NiceDate *) niceDateWithDate: (NSDate*) date;
+
+// Ditto
++ (NiceDate*) niceDateWithNiceDate: (NiceDate*)niceDate;
 
 //  current time in mysql format, intended for one-time use
 + (NSString *) currentMysqlDateTime;
