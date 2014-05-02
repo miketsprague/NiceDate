@@ -15,13 +15,6 @@
 @end
 
 @implementation NiceDate
-@synthesize second = _second;
-@synthesize minute = _minute;
-@synthesize hour = _hour;
-@synthesize day = _day;
-@synthesize month = _month;
-@synthesize year = _year;
-@synthesize timeZone = _timeZone;
 
 -(id)init
 {
@@ -105,81 +98,93 @@
 
 -(NSUInteger)second
 {
-    return _second;
+    return [[self components] second];
 }
 
 -(void)setSecond:(NSUInteger)second
 {
-    _second = second;
-    NSDateComponents *dateComponents = [self getDateComps];
-    [dateComponents setSecond:_second];
-    _date = [_calendar dateFromComponents:dateComponents];
+    NSDateComponents *dateComponents = [self components];
+    [dateComponents setSecond:second];
+    self.date = [_calendar dateFromComponents:dateComponents];
 }
 
 -(NSUInteger)minute
 {
-    return _minute;
+    return [[self components] minute];
 }
 
 -(void)setMinute:(NSUInteger)minute
 {
-    _minute = minute;
-    NSDateComponents *dateComponents = [self getDateComps];
-    [dateComponents setMinute:_minute];
-    _date = [_calendar dateFromComponents:dateComponents];
+    NSDateComponents *dateComponents = [self components];
+    [dateComponents setMinute:minute];
+    self.date = [_calendar dateFromComponents:dateComponents];
 }
 
 -(NSUInteger)hour
 {
-    return _hour;
+    return [[self components] hour];
 }
 
 -(void)setHour:(NSUInteger)hour
 {
-    _hour = hour;
-    NSDateComponents *dateComponents = [self getDateComps];
-    [dateComponents setHour:_hour];
-    _date = [_calendar dateFromComponents:dateComponents];
+    NSDateComponents *dateComponents = [self components];
+    [dateComponents setHour:hour];
+    self.date = [_calendar dateFromComponents:dateComponents];
 }
 
 
 -(NSUInteger)day
 {
-    return _day;
+    return [[self components] day];
 }
 
 -(void)setDay:(NSUInteger)day
 {
-    _day = day;
-    NSDateComponents *dateComponents = [self getDateComps];
-    [dateComponents setDay:_day];
-    _date = [_calendar dateFromComponents:dateComponents];
+    NSDateComponents *dateComponents = [self components];
+    [dateComponents setDay:day];
+    
+    // Update our date object.  This will update all of our properties.
+    self.date = [_calendar dateFromComponents:dateComponents];
+}
+
+-(NSUInteger)dayOfWeek {
+    return [self components].weekday;
+}
+
+-(NSString*)shortDayOfWeekString {
+    return [[self.formatter shortWeekdaySymbols] objectAtIndex:[self components].weekday-1];
+}
+
+-(NSString*)dayOfWeekString {
+    return [[self.formatter weekdaySymbols] objectAtIndex:[self components].weekday-1];
 }
 
 -(NSUInteger)month
 {
-    return _month;
+    return [[self components] month];
 }
 
 -(void)setMonth:(NSUInteger)month
 {
-    _month = month;
-    NSDateComponents *dateComponents = [self getDateComps];
-    [dateComponents setMonth:_month];
-    _date = [_calendar dateFromComponents:dateComponents];
+    NSDateComponents *dateComponents = [self components];
+    [dateComponents setMonth:month];
+    self.date = [_calendar dateFromComponents:dateComponents];
+}
+
+-(NSString*)monthString {
+    return [[self.formatter monthSymbols] objectAtIndex:(self.month-1)];
 }
 
 -(NSUInteger)year
 {
-    return _year;
+    return [[self components] year];
 }
 
 -(void)setYear:(NSUInteger)year
 {
-    _year = year;
-    NSDateComponents *dateComponents = [self getDateComps];
-    [dateComponents setYear:_year];
-    _date = [_calendar dateFromComponents:dateComponents];
+    NSDateComponents *dateComponents = [self components];
+    [dateComponents setYear:year];
+    self.date = [_calendar dateFromComponents:dateComponents];
 }
 
 -(void)setCalendarIdentifier:(NSString *)calendarIdentifier
@@ -189,19 +194,9 @@
     _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:_calendarIdentifier];
 }
 
-// We're overriding our date, so we need to make sure that we update all of our fields to take the NSDate's values.
 -(void)setDate:(NSDate *)date
 {
     _date = date;
-    
-    // Update all of our fields.  We need to be overridden by the new date.
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:_date];
-    _second = [components second];
-    _minute = [components minute];
-    _hour = [components hour];
-    _day = [components day];
-    _month = [components month];
-    _year = [components year];
 }
 
 - (NSDateFormatter*)formatter {
@@ -223,9 +218,9 @@
     
 }
 
--(NSDateComponents*)getDateComps
+-(NSDateComponents*)components
 {
-    return [_calendar components:( NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit ) fromDate:self.date];
+    return [_calendar components:( NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit ) fromDate:self.date];
 }
 
 - (BOOL)isEqualToNiceDate:(NiceDate *)otherDate {

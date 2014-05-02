@@ -7,13 +7,17 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NiceDate : NSObject <NSCopying>
+@interface NiceDate : NSObject
 
 @property (nonatomic, assign) NSUInteger second;
 @property (nonatomic, assign) NSUInteger minute;
 @property (nonatomic, assign) NSUInteger hour;
 @property (nonatomic, assign) NSUInteger day;
+@property (nonatomic, assign, readonly) NSUInteger dayOfWeek;
+@property (nonatomic, assign, readonly) NSString *shortDayOfWeekString;
+@property (nonatomic, assign, readonly) NSString *dayOfWeekString;
 @property (nonatomic, assign) NSUInteger month;
+@property (nonatomic, assign, readonly) NSString *monthString;
 @property (nonatomic, assign) NSUInteger year;
 @property (nonatomic, strong) NSString *format;
 @property (nonatomic, strong) NSTimeZone *timeZone;
